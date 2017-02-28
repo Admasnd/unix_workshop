@@ -1,0 +1,308 @@
+#+TITLE: Unix Workshop
+#+DATE:<2016-12-05 Mon> 
+#+AUTHOR: Antwane Mason, Yuriy Stejko
+#+EMAIL: ad.mason1413@gmail.com
+#+LATEX_CLASS: beamer
+#+BEAMER_THEME: Madrid
+# The following line gives access to the C-c C-b key for headings
+#+startup: beamer
+* Introduction 
+What is UNIX?
+- 1970s Bell Labs
+- Influenced Mac OSX and Linux
+What is the command-line?
+- Interactive
+- Text-based
+- Bash, Bash for Windows 10, Cygwin
+
+Objective
+- Teach fundamentals of using UNIX command-line
+* Why Important? 
+- Computer power-tools
+- Efficient computer interaction 
+- Automation
+* Tab Completion of File Names
+Commands 
+- cd <folder>
+- change directory
+- mkdir <folder>
+- make directory
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell
+mkdir folder8274916273
+cd fol<tab>
+#+end_src 
+
+* Copying & Removing Files
+Commands 
+- rm [-r] <file> 
+- remove 
+- cp [-r] <file>
+- copy
+- <file> can be file or directory
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell
+cp test test.backup
+rm -r testdir
+#+end_src 
+
+* Scrolling through Command History
+- Up Key shows previous commands in command history
+- Down Key shows more recent in command history
+
+* Long Running Processes on Server
+Commands
+- ssh <user>@<hostname>
+- secure shell
+- screen
+Usage 
+- Ctrl-a d detach a shell
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell 
+ssh masona5@linux.cs.rpi.edu
+screen
+python loop.py
+#+end_src 
+
+* Finding a process's id to kill it
+Commands
+- ps 
+- processes
+- kill <pid>
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell :results output :exports both :cache
+ps
+#+end_src 
+
+#+RESULTS:
+#+begin_example
+  PID TTY          TIME CMD
+ 3037 ?        00:00:00 systemd
+ 3040 ?        00:00:00 (sd-pam)
+ 3046 ?        00:00:00 gnome-keyring-d
+ 3048 ?        00:00:00 upstart
+ 3127 ?        00:00:00 upstart-udev-br
+ 3135 ?        00:00:06 dbus-daemon
+ 3148 ?        00:00:00 window-stack-br
+ 3176 ?        00:00:01 upstart-dbus-br
+ 3178 ?        00:00:02 upstart-dbus-br
+ 3182 ?        00:00:00 upstart-file-br
+ 3197 ?        00:00:51 ibus-daemon
+ 3205 ?        00:00:05 bamfdaemon
+ 3213 ?        00:00:00 gvfsd
+ 3218 ?        00:00:00 gvfsd-fuse
+#+end_example
+
+* Finding a process's id to kill it (continued)
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell 
+kill 3037
+#+end_src 
+
+* Finding Most Recent File in Directory
+Commands
+- ls [-l] [-t] 
+- list directory
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell :results output :exports both 
+ls -tl  
+#+end_src 
+
+#+RESULTS:
+#+begin_example
+total 158400
+-rw-rw-r-- 1 antwane antwane     6119 Dec  5 17:51 unix-workshop.org
+-rw-rw-r-- 1 antwane antwane   262228 Dec  5 17:49 unix-workshop.pdf
+drwxrwxr-x 2 antwane antwane     4096 Dec  5 17:49 auto
+-rw-rw-r-- 1 antwane antwane     7238 Dec  5 17:49 unix-workshop.tex
+-rw-rw-r-- 1 antwane antwane     6036 Dec  5 17:49 unix-workshop.org.~43~
+-rw-rw-r-- 1 antwane antwane     7056 Dec  5 17:48 unix-workshop.tex.~37~
+-rw-rw-r-- 1 antwane antwane     5825 Dec  5 17:47 unix-workshop.org.~42~
+#+end_example
+
+
+* Finding Pictures on Your Computer  
+Commands
+- find <base-dir> -name <pattern> -print
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell 
+find / -name *.gif -print 
+#+end_src 
+
+* Looking into Text File
+Commands
+- less <file>
+- less is more
+Usage
+- Scroll up Ctrl-Up
+- Scroll down Ctrl-Down
+- Quit q
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell 
+less phone.txt
+#+end_src 
+* Looking into Text File (continued)
+[[file:less-phone-number.png]]
+* Quick Editing of Text File
+Command
+- nano <file>
+Usage
+- ^ means Ctrl key
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell 
+nano phone.txt
+#+end_src 
+* Quick Editing of Text File (continued)
+[[file:nano-phone-number.png]]
+* Running Program on Server
+Commands
+- scp [-r] <src> <dst>
+- secure copy
+- Remote format <user>@<hostname>:<file-name>
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell 
+scp hello.py masona5@linux.cs.rpi.edu:home/
+ssh masona5@linux.cs.rpi.edu
+#+end_src 
+
+On Remote Machine
+#+begin_src shell 
+cd home
+python hello.py
+#+end_src 
+* Checking word count of Text File 
+Commands
+- wc [-l] [-w] [-c] <file>
+- word count
+- 1st number lines
+- 2nd number words
+- 3rd number characters
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell :results output :exports both :cache
+wc -lwc unix-workshop.org
+#+end_src 
+
+#+RESULTS:
+:   74  205 1677 unix-workshop.org
+
+* Download File from Internet
+Commands
+- wget <url>
+- web get
+ 
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell 
+wget http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1\
+-desktop-amd64.iso?_ga=1.197864874.446561195.1480889433
+#+end_src 
+
+* Download File from Internet (continued)
+[[file:wget.png]]
+
+* Zip & Unzip Files
+Commands
+- zip [-r] <archive-name> <dir>
+- zip <archive-name> <file> ...
+- <archive-name> will have .zip appended if left off
+** Example 1                                                       :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell 
+zip -r backup backup
+zip backup1 backup/test1.txt backup/testdir/test2.txt
+#+end_src  
+** Example 2                                                       :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell 
+unzip backup1.zip
+#+end_src 
+
+* Automating Program Input
+Usage
+- "<" redirect STDIN to file
+- ">" redirect STDOUT to file
+** Example                                                       :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell 
+python test.py < input.txt > output.txt
+#+end_src  
+
+* Count Number of Folders
+Usage
+- "|" takes STDOUT of first cmd to STDIN of second cmd
+** Example                                                       :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell :results output :exports both :cache
+cd /bin
+ls | wc -l
+#+end_src  
+
+* Figuring Out What Command to Use
+Commands
+- appropos <keyword> ...
+** Example                                                       :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+begin_src shell :results output :exports both :cache
+apropos download
+#+end_src  
+
+#+RESULTS:
+: arm2hpdl (1)         - Add HP download header/trailer to an ARM ELF binary.
+: git-fetch (1)        - Download objects and refs from another repository
+: git-http-fetch (1)   - Download from a remote Git repository via HTTP
+: hp-firmware (1)      - Firmware Download Utility
+: hp-plugin (1)        - Plugin Download and Install Utility
+: lwp-download (1p)    - Fetch large files from the web
+: update-pciids (8)    - download new version of the PCI ID list
+: update-usbids (8)    - download new version of the USB ID list
+: wget (1)             - The non-interactive network downloader.
+
+
+
+
+
